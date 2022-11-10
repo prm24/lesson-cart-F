@@ -12,7 +12,7 @@
             <h6 class="card-subtitle mb-2 text-muted">Location : London</h6>
             <h6 class="card-subtitle mb-2 text-muted">Price : £100</h6>
             <h6 class="card-subtitle mb-2 text-muted">Spaces : {{ avalaibleProducts }}</h6>
-            <button class="btn btn-primary" @click="addToCart()">Add to cart </button>
+            <button class="btn btn-primary" :disabled=isBtn @click="addToCart()">Add to cart </button>
           </div>
         </div>
       </div>
@@ -25,7 +25,8 @@ export default {
   name: 'app',
   data() {
     return {
-      avalaibleProducts: 10
+      avalaibleProducts: 5,
+      isBtn:false
     }
   },
   methods: {
@@ -35,6 +36,7 @@ export default {
       }
       else{
         console.log("no product left")
+        this.isBtn=true 
       }
     }
   }
