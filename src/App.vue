@@ -78,8 +78,8 @@
             </div>
           </div>
         </div>
-        <h3 class="mt-3">Shopping Cart</h3>
-        <div class="d-flex flex-wrap w-100 justify-content-between">
+        <h3 class="mt-3" v-if="selectedProduct.length">Shopping Cart</h3>
+        <div class="d-flex flex-wrap w-100 justify-content-between" v-if="selectedProduct.length">
           <div class=" me-1 card" v-for="(product, index) in selectedProduct">
             <div class="card-body" v-if="product.isVisible">
               <img :src="product.img" class="card-img-top" alt="..." />
