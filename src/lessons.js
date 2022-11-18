@@ -3,37 +3,37 @@ export let ProductList = [
       id: 1,
       name: 'math',
       location: 'London',
-      price: 80,
-      spaces: 5,
+      price: 20,
+      spaces: 0,
       isVisible: true
     }, {
       id: 2,
       name: 'Physics',
       location: 'hackney',
-      price: 90,
-      spaces: 5,
+      price: 440,
+      spaces: 9,
       isVisible: true
     }, {
       id: 3,
       name: 'Maths',
       location: 'liverpool',
-      price: 80,
-      spaces: 5,
+      price: 90,
+      spaces:2,
       isVisible: true
     },
     {
       id: 4,
       name: 'Eng',
       location: 'york',
-      price: 90,
-      spaces: 5,
+      price: 10,
+      spaces: 8,
       isVisible: true
     },
     {
       id: 5,
       name: 'Music',
       location: 'London',
-      price: 70,
+      price: 94,
       spaces: 5,
       isVisible: true
     },
@@ -41,16 +41,16 @@ export let ProductList = [
       id: 6,
       name: 'maths',
       location: 'London',
-      price: 90,
-      spaces: 5,
+      price: 99,
+      spaces: 3,
       isVisible: true
     },
     {
       id: 7,
       name: 'Eng',
       location: 'oxford',
-      price: 80,
-      spaces: 5,
+      price: 100,
+      spaces: 1,
       isVisible: true
     },
     {
@@ -58,7 +58,7 @@ export let ProductList = [
       name: 'music',
       location: 'oxford',
       price: 60,
-      spaces: 5,
+      spaces: 2,
       isVisible: true
     },
     {
@@ -66,7 +66,7 @@ export let ProductList = [
       name: 'chemistry',
       location: 'bristol',
       price: 80,
-      spaces: 5,
+      spaces: 6,
       isVisible: true
     },
     {
@@ -74,7 +74,7 @@ export let ProductList = [
       name: 'maths',
       location: 'oxford',
       price: 90,
-      spaces: 5,
+      spaces: 10,
       isVisible: true
     },
   ]
