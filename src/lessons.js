@@ -5,21 +5,24 @@ export let ProductList = [
       location: 'London',
       price: 20,
       spaces: 0,
-      isVisible: true
+      isVisible: true,
+      img:'src/assets/math.png'
     }, {
       id: 2,
       name: 'Physics',
       location: 'hackney',
       price: 440,
       spaces: 9,
-      isVisible: true
+      isVisible: true,
+      img:'src/assets/pen.png'
     }, {
       id: 3,
-      name: 'Maths',
+      name: 'Math',
       location: 'liverpool',
       price: 90,
       spaces:2,
-      isVisible: true
+      isVisible: true,
+      img:'src/assets/math.png'
     },
     {
       id: 4,
@@ -27,7 +30,8 @@ export let ProductList = [
       location: 'york',
       price: 10,
       spaces: 8,
-      isVisible: true
+      isVisible: true,
+     img:'src/assets/pen.png'
     },
     {
       id: 5,
@@ -35,15 +39,17 @@ export let ProductList = [
       location: 'London',
       price: 94,
       spaces: 5,
-      isVisible: true
+      isVisible: true,
+      img:'src/assets/music.png'
     },
     {
       id: 6,
-      name: 'maths',
+      name: 'math',
       location: 'London',
       price: 99,
       spaces: 3,
-      isVisible: true
+      isVisible: true,
+      img:'src/assets/math.png'
     },
     {
       id: 7,
@@ -51,7 +57,8 @@ export let ProductList = [
       location: 'oxford',
       price: 100,
       spaces: 1,
-      isVisible: true
+      isVisible: true,
+      img:'src/assets/pen.png'
     },
     {
       id: 8,
@@ -59,7 +66,8 @@ export let ProductList = [
       location: 'oxford',
       price: 60,
       spaces: 2,
-      isVisible: true
+      isVisible: true,
+      img:'src/assets/music.png'
     },
     {
       id: 9,
@@ -67,14 +75,16 @@ export let ProductList = [
       location: 'bristol',
       price: 80,
       spaces: 6,
-      isVisible: true
+      isVisible: true,
+      img:'src/assets/pen.png'
     },
     {
       id: 10,
-      name: 'maths',
+      name: 'jay',
       location: 'oxford',
       price: 90,
       spaces: 10,
-      isVisible: true
+      isVisible: true,
+      img:'src/assets/music.png'
     },
   ]

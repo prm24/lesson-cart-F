@@ -35,13 +35,13 @@
         </div>
         <div class="mt-3">
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="ascDec" v-model="selectedText" id="ascending" :value=1>
+            <input class="form-check-input" type="radio" name="ascDec" v-model="ascDec" id="ascending" :value=1>
             <label class="form-check-label" for="ascending">
               Ascending
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="ascDec" v-model="selectedText" id="descending" :value=2>
+            <input class="form-check-input" type="radio" name="ascDec" v-model="ascDec" id="descending" :value=2>
             <label class="form-check-label" for="descending">
               Descending
             </label>
@@ -51,13 +51,17 @@
       <div class="content">
         <h1>My online store</h1>
         <div class="container mx-auto mt-4">
-
+          <div class="form-group">
+            <label for="search">Search</label>
+            <input type="email" class="form-control" id="search" placeholder="Search for Subject"
+              v-model="searchResult">
+          </div>
 
           <div class="d-flex flex-wrap w-100 justify-content-between">
             <div class=" me-1 card" v-for="(product, index) in listOfProduct">
               <div class="card-body card-h">
                 <!-- <h5 class="card-title">{{ product.name }}</h5> -->
-                <img src="./assets/Your-Life-in-Pictures-Cover.jpg" class="card-img-top" alt="..." />
+                <img :src="product.img" class="card-img-top" alt="image" />
                 <div class="mt-2 card-body-content d-flex flex-column justify-content-between">
                   <div class="mt-2 ">
                     <h6 class="card-subtitle mb-2 text-muted">Name: {{ product.name }}</h6>
@@ -78,7 +82,7 @@
         <div class="d-flex flex-wrap w-100 justify-content-between">
           <div class=" me-1 card" v-for="(product, index) in selectedProduct">
             <div class="card-body" v-if="product.isVisible">
-              <img src="./assets/Your-Life-in-Pictures-Cover.jpg" class="card-img-top" alt="..." />
+              <img :src="product.img" class="card-img-top" alt="..." />
               <div class="mt-2 d-flex flex-column justify-content-between">
                 <div>
                   <h6 class="card-subtitle mb-2 text-muted">Name: {{ product.name }}</h6>
@@ -118,56 +122,87 @@ export default {
       listOfProduct: [],
       selectedProduct: [],
       toShowSelectedProduct: [],
-      sortSelected: 1,
+      isAscDec: 'asc',
+      ascDecs: 1,
+      sortSelected: 'name',
+      searchValue: '',
       form: {
         name: "",
         number: ""
       }
     }
   },
-  validations: {
-    // form: {
-    //   name: { required },
-    //   number: { required }
-    // }
-  },
   computed: {
+    searchResult: {
+      get() {
+        return this.searchValue;
+      },
+      set(newValue) {
+        this.searchValue = newValue
+        let tempList = this.listOfProduct;
+        debugger
+        if (this.searchValue != '' && this.searchValue) {
+          tempList = this.listOfProduct.filter((item) => {
+            return item.name
+              .toUpperCase()
+              .includes(this.searchValue.toUpperCase())
+          })
+          console.log(tempList);
+          this.listOfProduct=tempList;
+
+          return tempList;
+        }else{
+          this.listOfProduct = ProductList;
+        }
+      }
+    },
+    ascDec: {
+      get() {
+        return this.ascDecs;
+      },
+      set(newValue) {
+        this.isAscDec = newValue == 1 ? 'asc' : 'dsc';
+        this.sortByAscDec();
+
+      }
+    },
     selectedText: {
       get() {
         return this.sortSelected;
       },
       set(newValue) {
-        if (typeof newValue === 'string') {
-          this.listOfProduct.sort((a, b) => {
-
-            let fa = typeof a == 'string' ? a[newValue].toLowerCase() : a[newValue];
-            let fb = typeof a == 'string' ? b[newValue].toLowerCase() : b[newValue];
-            if (fa < fb) {
-              return -1
-            }
-            if (fa > fb) {
-              return 1
-            }
-            return 0
-          });
-        }else{
-          debugger
-          if(newValue==1){
-            this.listOfProduct=this.listOfProduct.sort()
-          }else{
-            this.listOfProduct=this.listOfProduct.reverse()
-          }
-        }
+        this.sortSelected = newValue
+        this.sortList();
       }
     }
   },
   created() {
-
-    this.listOfProduct = ProductList
+    this.listOfProduct = ProductList;
+    this.sortByAscDec();
   },
   methods: {
+    sortByAscDec() {
+      if (this.isAscDec == 'asc') {
+        this.sortList()
+      } else {
+        this.listOfProduct = this.listOfProduct.reverse();
+      }
+    },
+    sortList() {
+      this.listOfProduct.sort((a, b) => {
+        let fa = typeof a == 'string' ? a[this.sortSelected].toLowerCase() : a[this.sortSelected];
+        let fb = typeof a == 'string' ? b[this.sortSelected].toLowerCase() : b[this.sortSelected];
+        if (fa < fb) {
+          return -1
+        }
+        if (fa > fb) {
+          return 1
+        }
+        return 0
+      });
+      this.sortByAscDec();
+    },
     addToCart(product, index) {
-
       if (product.spaces > 0 && this.selectedProduct) {
         product.spaces--;
         const addToCartproduct = this.selectedProduct.find(x => x.id == product.id);
@@ -184,6 +219,7 @@ export default {
             location: product.location,
             price: product.price,
             spaces: 1,
+            img:ProductList[index].img,
             isVisible: true
           }
           this.selectedProduct.push(firstProduct);
