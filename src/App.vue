@@ -91,7 +91,7 @@
                   <h6 class="card-subtitle mb-2 text-muted">Spaces : {{ product.spaces }}</h6>
                 </div>
                 <div>
-                  <button class="btn btn-primary" :disabled=isBtn @click="removeFromCart(product, index)">Remove from
+                  <button class="btn btn-primary  " :disabled=isBtn @click="removeFromCart(product, index)">Remove from
                     cart
                   </button>
                 </div>
