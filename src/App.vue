@@ -73,7 +73,7 @@
                     <button class="btn btn-primary" :disabled=isBtn @click="addToCart(product, index)">Add to cart
                     </button>
                   </div>
-                </div>
+                </div>  
               </div>
             </div>
           </div>
