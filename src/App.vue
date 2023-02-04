@@ -5,29 +5,54 @@
         <div>
           Sort By
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="sortBy" v-model="selectedText" checked id="subject"
-              :value="'name'">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="sortBy"
+              v-model="selectedText"
+              checked
+              id="subject"
+              :value="'name'"
+            />
             <label class="form-check-label" for="subject">
               Subject
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="sortBy" v-model="selectedText" id="location"
-              :value="'location'">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="sortBy"
+              v-model="selectedText"
+              id="location"
+              :value="'location'"
+            />
             <label class="form-check-label" for="location">
               Location
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="sortBy" v-model="selectedText" id="price"
-              :value="'price'">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="sortBy"
+              v-model="selectedText"
+              id="price"
+              :value="'price'"
+            />
             <label class="form-check-label" for="price">
               Price
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="sortBy" v-model="selectedText" id="availability"
-              :value="'spaces'">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="sortBy"
+              v-model="selectedText"
+              id="availability"
+              :value="'spaces'"
+            />
             <label class="form-check-label" for="availability">
               Availability
             </label>
@@ -35,13 +60,27 @@
         </div>
         <div class="mt-3">
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="ascDec" v-model="ascDec" id="ascending" :value=1>
+            <input
+              class="form-check-input"
+              type="radio"
+              name="ascDec"
+              v-model="ascDec"
+              id="ascending"
+              :value="1"
+            />
             <label class="form-check-label" for="ascending">
               Ascending
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="ascDec" v-model="ascDec" id="descending" :value=2>
+            <input
+              class="form-check-input"
+              type="radio"
+              name="ascDec"
+              v-model="ascDec"
+              id="descending"
+              :value="2"
+            />
             <label class="form-check-label" for="descending">
               Descending
             </label>
@@ -50,11 +89,22 @@
       </div>
       <div class="content">
         <h1>My online store</h1>
+        <h6 class="text-danger" v-if="showMsg">
+          Please Enter your Name and Phone number
+        </h6>
         <div class="container mx-auto mt-4">
           <div class="form-group">
             <label for="search">Search</label>
-            <input type="email" class="form-control" id="search" placeholder="Search for Subject"
-              v-model="searchResult">
+            <input
+              type="email"
+              class="form-control"
+              id="search"
+              placeholder="Search for Subject"
+              v-model="searchResult"
+            />
+            <button class="btn" @click="searchByText()">
+              Search
+            </button>
           </div>
 
           <div class="d-flex flex-wrap w-100 justify-content-between">
@@ -62,37 +112,73 @@
               <div class="card-body card-h">
                 <!-- <h5 class="card-title">{{ product.name }}</h5> -->
                 <img :src="product.img" class="card-img-top" alt="image" />
-                <div class="mt-2 card-body-content d-flex flex-column justify-content-between">
+                <div
+                  class="mt-2 card-body-content d-flex flex-column justify-content-between"
+                >
                   <div class="mt-2 ">
-                    <h6 class="card-subtitle mb-2 text-muted">Name: {{ product.name }}</h6>
-                    <h6 class="card-subtitle mb-2 text-muted">Location: {{ product.location }}</h6>
-                    <h6 class="card-subtitle mb-2 text-muted">Price: {{ product.price }} </h6>
-                    <h6 class="card-subtitle mb-2 text-muted">Spaces : {{ product.spaces }}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                      Name: {{ product.name }}
+                    </h6>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                      Location: {{ product.location }}
+                    </h6>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                      Price: {{ product.price }}
+                    </h6>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                      Spaces : {{ product.space }}
+                    </h6>
                   </div>
                   <div>
-                    <button class="btn btn-primary" :disabled=isBtn @click="addToCart(product, index)">Add to cart
+                    <button
+                      class="btn btn-primary"
+                      :disabled="isBtn"
+                      @click="addToCart(product, index)"
+                    >
+                      Add to cart
+                    </button>
+                    <button
+                      class="btn btn-danger"
+                      @click="deleteProduct(product, index)"
+                    >
+                      Delete
                     </button>
                   </div>
-                </div>  
+                </div>
               </div>
             </div>
           </div>
         </div>
         <h3 class="mt-3" v-if="selectedProduct.length">Shopping Cart</h3>
-        <div class="d-flex flex-wrap w-100 justify-content-between" v-if="selectedProduct.length">
+        <div
+          class="d-flex flex-wrap w-100 justify-content-between"
+          v-if="selectedProduct.length"
+        >
           <div class=" me-1 card" v-for="(product, index) in selectedProduct">
-            <div class="card-body" v-if="product.isVisible">
+            <div class="card-body">
               <img :src="product.img" class="card-img-top" alt="..." />
               <div class="mt-2 d-flex flex-column justify-content-between">
-                <div>
-                  <h6 class="card-subtitle mb-2 text-muted">Name: {{ product.name }}</h6>
-                  <h6 class="card-subtitle mb-2 text-muted">Location: {{ product.location }}</h6>
-                  <h6 class="card-subtitle mb-2 text-muted">Price: £{{ product.price }} </h6>
-                  <h6 class="card-subtitle mb-2 text-muted">Spaces : {{ product.spaces }}</h6>
+                <div class="mt-2 ">
+                  <h6 class="card-subtitle mb-2 text-muted">
+                    User Name: {{ product.name }}
+                  </h6>
+                  <h6 class="card-subtitle mb-2 text-muted">
+                    lesson Name: {{ product.lessonName }}
+                  </h6>
+                  <h6 class="card-subtitle mb-2 text-muted">
+                    Phone Number: {{ product.phoneNumber }}
+                  </h6>
+                  <h6 class="card-subtitle mb-2 text-muted">
+                    No. of Spaces : {{ product.spaces }}
+                  </h6>
                 </div>
                 <div>
-                  <button class="btn btn-primary  " :disabled=isBtn @click="removeFromCart(product, index)">Remove from
-                    cart
+                  <button
+                    class="btn btn-primary  "
+                    :disabled="isBtn"
+                    @click="removeFromCart(product, index)"
+                  >
+                    Remove from cart
                   </button>
                 </div>
               </div>
@@ -101,8 +187,20 @@
         </div>
         <h3>Checkout</h3>
         <form class="mt-3">
-          Name: <input type="text" v-model="form.name" class="form-group" placeholder="Name">
-          Phone: <input type="number" v-model="form.number" class="form-group" placeholder="Phone">
+          Name:
+          <input
+            type="text"
+            v-model="form.name"
+            class="form-group"
+            placeholder="Name"
+          />
+          Phone:
+          <input
+            type="number"
+            v-model="form.number"
+            class="form-group"
+            placeholder="Phone"
+          />
           <button class="btn btn-primary">Checkout</button>
         </form>
       </div>
@@ -111,59 +209,60 @@
 </template>
 
 <script>
-import { ProductList } from "./lessons";
+// import { ProductList } from "./lessons";
 
 export default {
-  name: 'app',
+  name: "app",
   data() {
     return {
+      searchResult: "",
       avalaibleProducts: 5,
       isBtn: false,
+      showMsg: false,
       listOfProduct: [],
       selectedProduct: [],
       toShowSelectedProduct: [],
-      isAscDec: 'asc',
+      isAscDec: "asc",
       ascDecs: 1,
-      sortSelected: 'name',
-      searchValue: '',
+      sortSelected: "name",
+      searchValue: "",
       form: {
         name: "",
         number: ""
       }
-    }
+    };
   },
   computed: {
-    searchResult: {
-      get() {
-        return this.searchValue;
-      },
-      set(newValue) {
-        this.searchValue = newValue
-        let tempList = this.listOfProduct;
-        debugger
-        if (this.searchValue != '' && this.searchValue) {
-          tempList = this.listOfProduct.filter((item) => {
-            return item.name
-              .toUpperCase()
-              .includes(this.searchValue.toUpperCase())
-          })
-          console.log(tempList);
-          this.listOfProduct=tempList;
+    // searchResult: {
+    //   get() {
+    //     return this.searchValue;
+    //   },
+    //   set(newValue) {
+    //     this.searchValue = newValue;
+    //     let tempList = this.listOfProduct;
+    //     debugger;
+    //     if (this.searchValue != "" && this.searchValue) {
+    //       tempList = this.listOfProduct.filter(item => {
+    //         return item.name
+    //           .toUpperCase()
+    //           .includes(this.searchValue.toUpperCase());
+    //       });
+    //       console.log(tempList);
+    //       this.listOfProduct = tempList;
 
-          return tempList;
-        }else{
-          this.listOfProduct = ProductList;
-        }
-      }
-    },
+    //       return tempList;
+    //     } else {
+    //       this.listOfProduct = ProductList;
+    //     }
+    //   }
+    // },
     ascDec: {
       get() {
         return this.ascDecs;
       },
       set(newValue) {
-        this.isAscDec = newValue == 1 ? 'asc' : 'dsc';
+        this.isAscDec = newValue == 1 ? "asc" : "dsc";
         this.sortByAscDec();
-
       }
     },
     selectedText: {
@@ -171,94 +270,170 @@ export default {
         return this.sortSelected;
       },
       set(newValue) {
-        this.sortSelected = newValue
+        this.sortSelected = newValue;
         this.sortList();
       }
     }
   },
   created() {
-    this.listOfProduct = ProductList;
     this.sortByAscDec();
+    this.getProducts();
   },
   methods: {
+    searchByText() {
+      if (this.searchResult.length) {
+        fetch(`http://localhost:3000/search`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text: this.searchResult })
+        })
+          .then(res => {
+            let data = res.json();
+            return data;
+          })
+          .then(res => {
+            this.listOfProduct = [];
+            this.listOfProduct = res;
+            console.log(res);
+          })
+          .catch(res1 => {
+            console.log("error", res1);
+          });
+      } else {
+        this.getProducts();
+      }
+    },
+    deleteAllOrders() {
+      fetch(`http://localhost:3000/orders`, {
+        method: "DELETE",
+        headers: {
+          "Access-Control-Allow-Headers": "Content-Type"
+        }
+      })
+        .then(res => {
+          console.log("deleted successfully");
+          this.getProducts();
+          return res;
+        })
+        .catch(res1 => {
+          console.log("s", res1);
+        });
+    },
+    deleteProduct(product, index) {
+      fetch(`http://localhost:3000/lessons/${product._id}`, {
+        method: "DELETE",
+        data: {
+          name: "LCD",
+          topic: "new",
+          location: "new location",
+          price: 101,
+          space: 101
+        },
+        headers: {
+          "Access-Control-Allow-Headers": "Content-Type"
+        }
+      })
+        .then(res => {
+          console.log("deleted successfully");
+          this.getProducts();
+          return res;
+        })
+        .catch(res1 => {
+          console.log("s", res1);
+        });
+    },
+    getProducts() {
+      fetch("http://localhost:3000/lessons", {
+        method: "GET"
+      })
+        .then(res => {
+          let data = res.json();
+          return data;
+        })
+        .then(res => {
+          this.listOfProduct = [];
+          this.listOfProduct = res;
+          console.log(res);
+        })
+        .catch(res1 => {
+          console.log("error", res1);
+        });
+    },
+    getOrders() {
+      fetch("http://localhost:3000/orders", {
+        method: "GET"
+      })
+        .then(res => {
+          let data = res.json();
+          return data;
+        })
+        .then(res => {
+          this.selectedProduct = [];
+          this.selectedProduct = res;
+          console.log(res);
+        })
+        .catch(res1 => {
+          console.log("error", res1);
+        });
+    },
     sortByAscDec() {
-      if (this.isAscDec == 'asc') {
-        this.sortList()
+      if (this.isAscDec == "asc") {
+        this.sortList();
       } else {
         this.listOfProduct = this.listOfProduct.reverse();
       }
     },
     sortList() {
       this.listOfProduct.sort((a, b) => {
-        let fa = typeof a == 'string' ? a[this.sortSelected].toLowerCase() : a[this.sortSelected];
-        let fb = typeof a == 'string' ? b[this.sortSelected].toLowerCase() : b[this.sortSelected];
+        let fa =
+          typeof a == "string"
+            ? a[this.sortSelected].toLowerCase()
+            : a[this.sortSelected];
+        let fb =
+          typeof a == "string"
+            ? b[this.sortSelected].toLowerCase()
+            : b[this.sortSelected];
         if (fa < fb) {
-          return -1
+          return -1;
         }
         if (fa > fb) {
-          return 1
+          return 1;
         }
-        return 0
+        return 0;
       });
-      this.sortByAscDec();
+      // this.sortByAscDec();
     },
     addToCart(product, index) {
-      if (product.spaces > 0 && this.selectedProduct) {
-        product.spaces--;
-        const addToCartproduct = this.selectedProduct.find(x => x.id == product.id);
-        if (addToCartproduct) {
-          this.selectedProduct.forEach(x => {
-            if (x.id == product.id) {
-              x.spaces++;
-            }
+      console.log(this.form, product);
+      if (this.form.name && this.form.number) {
+        this.showMsg = false;
+        let order = {
+          name: this.form.name,
+          phoneNumber: this.form.number,
+          lessonId: product._id,
+          spaces: product.space,
+          lessonName: product.name
+        };
+        fetch("http://localhost:3000/orders", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(order)
+        })
+          .then(res => {
+            console.log(res);
+            this.getProducts();
+            this.getOrders();
+          })
+          .catch(error => {
+            console.log(error);
           });
-        } else {
-          const firstProduct = {
-            id: product.id,
-            name: product.name,
-            location: product.location,
-            price: product.price,
-            spaces: 1,
-            img:ProductList[index].img,
-            isVisible: true
-          }
-          this.selectedProduct.push(firstProduct);
-        }
       } else {
-        console.log('out of stock')
+        this.showMsg = true;
       }
     },
-    removeFromCart(product, cart) {
-      if (product.spaces == 0) {
-        this.selectedProduct.splice(cart, 1)
-      }
-      if (product.spaces > 0 && this.listOfProduct) {
-        product.spaces--;
-        const addToCartproduct = this.listOfProduct.find(x => x.id == product.id);
-        if (addToCartproduct) {
-          this.listOfProduct.forEach(x => {
-            if (x.id == product.id) {
-              x.spaces++;
-            }
-          });
-        } else {
-          const firstProduct = {
-            id: product.id,
-            name: product.name,
-            location: product.location,
-            price: product.price,
-            spaces: 1,
-            isVisible: true
-          }
-          this.listOfProduct.push(firstProduct);
-        }
-        if (product.spaces == 0) {
-          this.selectedProduct.splice(cart, 1)
-        }
-      }
-    }
+    removeFromCart(product, cart) {}
   }
-}
+};
 </script>
 
 <style>
@@ -270,7 +445,7 @@ body {
 }
 
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -305,7 +480,6 @@ body {
   padding-left: 30px;
 }
 
-
 .card {
   max-height: 380px;
   height: 380px;
@@ -318,7 +492,7 @@ body {
 }
 
 .card-body {
-  padding: 0.50rem;
+  padding: 0.5rem;
 }
 
 h1,
