@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <div id="app" class="my-5 flex-container">
+    <nav class="navbar bg-primary" data-bs-theme="dark">
+      <!-- Navbar content -->
+    </nav>
+    <div id="app" class="flex-container">
       <div class="sidenav">
         <div>
           Sort By
@@ -88,13 +91,12 @@
         </div>
       </div>
       <div class="content">
-        <h1>My online store</h1>
+        <h1>Lesson Cart</h1>
         <h6 class="text-danger" v-if="showMsg">
           Please Enter your Name and Phone number
         </h6>
         <div class="container mx-auto mt-4">
-          <div class="form-group">
-            <label for="search">Search</label>
+          <div class="form-group d-flex">
             <input
               type="email"
               class="form-control"
@@ -102,7 +104,7 @@
               placeholder="Search for Subject"
               v-model="searchResult"
             />
-            <button class="btn" @click="searchByText()">
+            <button class="btn btn-primary mx-1" @click="searchByText()">
               Search
             </button>
           </div>
@@ -111,7 +113,7 @@
             <div class=" me-1 card" v-for="(product, index) in listOfProduct">
               <div class="card-body card-h">
                 <!-- <h5 class="card-title">{{ product.name }}</h5> -->
-                <img :src="product.img" class="card-img-top" alt="image" />
+                <img :src="imageSRC" class="card-img-top" :alt="imageSRC" />
                 <div
                   class="mt-2 card-body-content d-flex flex-column justify-content-between"
                 >
@@ -229,33 +231,11 @@ export default {
       form: {
         name: "",
         number: ""
-      }
+      },
+      imageSRC: ""
     };
   },
   computed: {
-    // searchResult: {
-    //   get() {
-    //     return this.searchValue;
-    //   },
-    //   set(newValue) {
-    //     this.searchValue = newValue;
-    //     let tempList = this.listOfProduct;
-    //     debugger;
-    //     if (this.searchValue != "" && this.searchValue) {
-    //       tempList = this.listOfProduct.filter(item => {
-    //         return item.name
-    //           .toUpperCase()
-    //           .includes(this.searchValue.toUpperCase());
-    //       });
-    //       console.log(tempList);
-    //       this.listOfProduct = tempList;
-
-    //       return tempList;
-    //     } else {
-    //       this.listOfProduct = ProductList;
-    //     }
-    //   }
-    // },
     ascDec: {
       get() {
         return this.ascDecs;
@@ -278,8 +258,26 @@ export default {
   created() {
     this.sortByAscDec();
     this.getProducts();
+    this.loadImage();
   },
   methods: {
+    loadImage() {
+      fetch("http://localhost:3000/lesson-images", {
+        method: "GET"
+      })
+        .then(res => {
+          debugger;
+          let data = res.json();
+          return data;
+        })
+        .then(res => {
+          this.imageSRC = res;
+          console.log(this.imageSRC);
+        })
+        .catch(res1 => {
+          console.log("error", res1);
+        });
+    },
     searchByText() {
       if (this.searchResult.length) {
         fetch(`http://localhost:3000/search`, {
@@ -450,7 +448,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 
 .flex-container {
@@ -461,7 +458,7 @@ body {
 }
 
 .sidenav {
-  background-color: lightgray;
+  background-color: #ffdddd;
   -webkit-flex: 1;
   flex: 1;
 }
