@@ -318,7 +318,7 @@ export default {
         });
     },
     deleteProduct(product, index) {
-      fetch(http://lessoncart-env.eba-msmxypxp.eu-west-2.elasticbeanstalk.com/lessons/${product._id}`, {
+      fetch(`http://lessoncart-env.eba-msmxypxp.eu-west-2.elasticbeanstalk.com/lessons/${product._id}`, {
         method: "DELETE",
         data: {
           name: "LCD",
