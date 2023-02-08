@@ -262,7 +262,7 @@ export default {
   },
   methods: {
     loadImage() {
-      fetch("http://localhost:3000/lesson-images", {
+      fetch("http://lessoncart-env.eba-msmxypxp.eu-west-2.elasticbeanstalk.com/lesson-images", {
         method: "GET"
       })
         .then(res => {
@@ -280,7 +280,7 @@ export default {
     },
     searchByText() {
       if (this.searchResult.length) {
-        fetch(`http://localhost:3000/search`, {
+        fetch(`http://lessoncart-env.eba-msmxypxp.eu-west-2.elasticbeanstalk.com/search`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ text: this.searchResult })
@@ -302,7 +302,7 @@ export default {
       }
     },
     deleteAllOrders() {
-      fetch(`http://localhost:3000/orders`, {
+      fetch(`http://lessoncart-env.eba-msmxypxp.eu-west-2.elasticbeanstalk.com/orders`, {
         method: "DELETE",
         headers: {
           "Access-Control-Allow-Headers": "Content-Type"
@@ -318,7 +318,7 @@ export default {
         });
     },
     deleteProduct(product, index) {
-      fetch(`http://localhost:3000/lessons/${product._id}`, {
+      fetch(http://lessoncart-env.eba-msmxypxp.eu-west-2.elasticbeanstalk.com/lessons/${product._id}`, {
         method: "DELETE",
         data: {
           name: "LCD",
@@ -341,7 +341,7 @@ export default {
         });
     },
     getProducts() {
-      fetch("http://localhost:3000/lessons", {
+      fetch("http://lessoncart-env.eba-msmxypxp.eu-west-2.elasticbeanstalk.com/lessons", {
         method: "GET"
       })
         .then(res => {
@@ -358,7 +358,7 @@ export default {
         });
     },
     getOrders() {
-      fetch("http://localhost:3000/orders", {
+      fetch("http://lessoncart-env.eba-msmxypxp.eu-west-2.elasticbeanstalk.com/orders", {
         method: "GET"
       })
         .then(res => {
@@ -412,7 +412,7 @@ export default {
           spaces: product.space,
           lessonName: product.name
         };
-        fetch("http://localhost:3000/orders", {
+        fetch("http://lessoncart-env.eba-msmxypxp.eu-west-2.elasticbeanstalk.com/orders", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(order)
